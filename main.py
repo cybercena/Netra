@@ -6,14 +6,17 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import socket
 import re
 from datetime import datetime
+from netra import *
 
 
 # Create the main window and initialize the value for height and width with title for the window 
 root = Tk()
 height = 600
 width= 600
-root.title("NETRA")
+root.title("NETRA - Network Scanner")
 root.geometry("600x600")
+# root.config(bg="#1e1e2e")
+
 
 
 #function to get local ip of own device
@@ -417,76 +420,77 @@ def support():
     messagebox.showinfo("Support", "Contacting support...")
 
 
+def build_main_app():
+    #cleaning the wellcome page
+    welcome_frame.pack_forget()
+    # Create a menu bar
+    menu_bar = Menu(root)
+    root.config(menu=menu_bar)
+
+    # File Menu
+    file_menu = Menu(menu_bar, tearoff=0)
+    menu_bar.add_cascade(label="File", menu=file_menu)
+    file_menu.add_command(label="New Scan", command=new_scan)
+    file_menu.add_command(label="Open Scan Results", command=open_scan_results)
+    # file_menu.add_command(label="Save Scan Results", command=save_scan_results)
+    file_menu.add_separator()
+    file_menu.add_command(label="Exit", command=exit_app)
+
+    #Tools menu
+    tools_menu = Menu(menu_bar, tearoff=0)
+    menu_bar.add_cascade(label="Tools", menu=tools_menu)
+    tools_menu.add_command(label="Port Scanning", command=open_tools_window)
+    tools_menu.add_command(label="Ip lookup", command=documentation)
 
 
-# Create a menu bar
-menu_bar = Menu(root)
-root.config(menu=menu_bar)
-
-# File Menu
-file_menu = Menu(menu_bar, tearoff=0)
-menu_bar.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="New Scan", command=new_scan)
-file_menu.add_command(label="Open Scan Results", command=open_scan_results)
-# file_menu.add_command(label="Save Scan Results", command=save_scan_results)
-file_menu.add_separator()
-file_menu.add_command(label="Exit", command=exit_app)
-
-#Tools menu
-tools_menu = Menu(menu_bar, tearoff=0)
-menu_bar.add_cascade(label="Tools", menu=tools_menu)
-tools_menu.add_command(label="Port Scanning", command=open_tools_window)
-tools_menu.add_command(label="Ip lookup", command=documentation)
 
 
+    # # Scan Menu
+    # scan_menu = Menu(menu_bar, tearoff=0)
+    # menu_bar.add_cascade(label="Scan", menu=scan_menu)
+    # scan_menu.add_command(label="Quick Scan", command=quick_scan)
+    # scan_menu.add_command(label="Intense Scan", command=intense_scan)
+    # scan_menu.add_command(label="Ping Scan", command=ping_scan)
+    # scan_menu.add_command(label="Port Scan", command=port_scan)
+    # scan_menu.add_command(label="UDP Scan", command=udp_scan)
+    # scan_menu.add_command(label="SYN Scan", command=syn_scan)
+    # scan_menu.add_command(label="Custom Scan", command=custom_scan)
+    # scan_menu.add_command(label="Stop Scan", command=stop_scan)
 
+    # View Menu
+    # view_menu = Menu(menu_bar, tearoff=0)
+    # menu_bar.add_cascade(label="View", menu=view_menu)
+    # view_menu.add_command(label="Scan Results")
+    # view_menu.add_command(label="Network Map")
+    # view_menu.add_command(label="Logs")
 
-# # Scan Menu
-# scan_menu = Menu(menu_bar, tearoff=0)
-# menu_bar.add_cascade(label="Scan", menu=scan_menu)
-# scan_menu.add_command(label="Quick Scan", command=quick_scan)
-# scan_menu.add_command(label="Intense Scan", command=intense_scan)
-# scan_menu.add_command(label="Ping Scan", command=ping_scan)
-# scan_menu.add_command(label="Port Scan", command=port_scan)
-# scan_menu.add_command(label="UDP Scan", command=udp_scan)
-# scan_menu.add_command(label="SYN Scan", command=syn_scan)
-# scan_menu.add_command(label="Custom Scan", command=custom_scan)
-# scan_menu.add_command(label="Stop Scan", command=stop_scan)
+    # # Tools Menu
+    # tools_menu = Menu(menu_bar, tearoff=0)
+    # menu_bar.add_cascade(label="Tools", menu=tools_menu)
+    # tools_menu.add_command(label="IP Lookup", command=ip_lookup)
+    # tools_menu.add_command(label="Port Scanner", command=port_scanner)
+    # tools_menu.add_command(label="Ping", command=ping)
+    # tools_menu.add_command(label="Traceroute", command=traceroute)
+    # tools_menu.add_command(label="Service Version Detection", command=service_version_detection)
+    # tools_menu.add_command(label="OS Detection", command=os_detection)
+    # tools_menu.add_command(label="Vulnerability Scanning", command=vulnerability_scanning)
+    # tools_menu.add_command(label="Network Inventory", command=network_inventory)
+    # tools_menu.add_command(label="Scripting Engine", command=scripting_engine)
+    # tools_menu.add_command(label="Firewall Evasion", command=firewall_evasion)
 
-# View Menu
-# view_menu = Menu(menu_bar, tearoff=0)
-# menu_bar.add_cascade(label="View", menu=view_menu)
-# view_menu.add_command(label="Scan Results")
-# view_menu.add_command(label="Network Map")
-# view_menu.add_command(label="Logs")
+    # Settings Menu
+    settings_menu = Menu(menu_bar, tearoff=0)
+    menu_bar.add_cascade(label="Settings", menu=settings_menu)
+    settings_menu.add_command(label="Preferences", command=preferences)
+    settings_menu.add_command(label="Network Settings", command=network_settings)
+    settings_menu.add_command(label="Update", command=update)
 
-# # Tools Menu
-# tools_menu = Menu(menu_bar, tearoff=0)
-# menu_bar.add_cascade(label="Tools", menu=tools_menu)
-# tools_menu.add_command(label="IP Lookup", command=ip_lookup)
-# tools_menu.add_command(label="Port Scanner", command=port_scanner)
-# tools_menu.add_command(label="Ping", command=ping)
-# tools_menu.add_command(label="Traceroute", command=traceroute)
-# tools_menu.add_command(label="Service Version Detection", command=service_version_detection)
-# tools_menu.add_command(label="OS Detection", command=os_detection)
-# tools_menu.add_command(label="Vulnerability Scanning", command=vulnerability_scanning)
-# tools_menu.add_command(label="Network Inventory", command=network_inventory)
-# tools_menu.add_command(label="Scripting Engine", command=scripting_engine)
-# tools_menu.add_command(label="Firewall Evasion", command=firewall_evasion)
-
-# Settings Menu
-settings_menu = Menu(menu_bar, tearoff=0)
-menu_bar.add_cascade(label="Settings", menu=settings_menu)
-settings_menu.add_command(label="Preferences", command=preferences)
-settings_menu.add_command(label="Network Settings", command=network_settings)
-settings_menu.add_command(label="Update", command=update)
-
-# Help Menu
-help_menu = Menu(menu_bar, tearoff=0)
-menu_bar.add_cascade(label="Help", menu=help_menu)
-help_menu.add_command(label="Documentation", command=documentation)
-help_menu.add_command(label="About", command=about)
-help_menu.add_command(label="Support", command=support)
+    # Help Menu
+    help_menu = Menu(menu_bar, tearoff=0)
+    menu_bar.add_cascade(label="Help", menu=help_menu)
+    help_menu.add_command(label="Documentation", command=documentation)
+    help_menu.add_command(label="About", command=about)
+    help_menu.add_command(label="Support", command=support)
 
 #creating some frames
 #frame for new scan
@@ -515,13 +519,72 @@ def hide_all_frames():
         frame.pack_forget()
         for widget in frame.winfo_children():
             widget.destroy()
-        
-        # for widget in new_scan_frame.winfo_children():
-        #     widget.destroy()
     
-    # new_scan_frame.pack_forget()
-    # open_scan_frame.pack_forget()
-    # save_scan_frame.pack_forget()
+    # for widget in new_scan_frame.winfo_children():
+    #     widget.destroy()
+
+# new_scan_frame.pack_forget()
+# open_scan_frame.pack_forget()
+# save_scan_frame.pack_forget()
+
+
+#creating a welcome frame for the app
+welcome_frame = Frame(root, bg="#1e1e2e")
+welcome_frame.pack(fill="both", expand=True)
+
+#creating logo for welcome page
+logo_image = Image.open("logo1.ico")  # Replace with your logo file path
+logo_image = logo_image.resize((313, 300))  # Resize if needed
+logo_photo = ImageTk.PhotoImage(logo_image)
+logo_label = Label(welcome_frame, image=logo_photo, bg="#1e1e2e")
+logo_label.pack(pady=50)  # Adjust padding
+
+
+# adding title for welcome page
+title_label = Label(
+    welcome_frame,
+    text="Welcome to Netra",
+    font=("Helvetica", 24, "bold"),
+    fg="#f8f8f2",
+    bg="#1e1e2e"
+)
+title_label.pack()
+
+# Adding qoute for the welcome page
+quote_label = Label(
+    welcome_frame,
+    text = "\"The Third Eye of Security: Uncover, Analyze, Secure.\"",
+    font=("Helvetica", 14, "italic"),
+    fg="#bd93f9",
+    bg="#1e1e2e",
+    wraplength=500,
+    justify="center"
+)
+quote_label.pack(pady=10)
+#button with hover effects
+def on_enter(event):
+    start_button.config(bg="#d4435c", fg="white")
+
+def on_leave(event):
+    start_button.config(bg="#4CAF50", fg="white")
+
+start_button = Button(
+    welcome_frame,
+    text="Start",
+    font=("Helvetica", 16, "bold"),
+    bg="#4CAF50",
+    fg="white",
+    padx=20,
+    pady=10,
+    relief="flat",
+    bd=0,
+    command=build_main_app # yesma start_app function lekhana parxa
+)
+start_button.pack(pady=30)
+
+# Add hover effects
+start_button.bind("<Enter>", on_enter)
+start_button.bind("<Leave>", on_leave)
 
 
 
