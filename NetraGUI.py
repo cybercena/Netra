@@ -1,4 +1,4 @@
-from NetrasLib import *
+from netra import *
 
 # Create the root windows.
 root = Tk()
@@ -93,14 +93,34 @@ def build_main_app():
     menu_bar = Menu(root)
     root.config(menu=menu_bar)
 
-    #creating a file menu
+    #creating a menus in menubar
     file_menu = Menu(menu_bar, tearoff=0)
-    menu_bar.add_cascade(label="File", menu=file_menu)
-    file_menu.add_command(label="New Scan", command=new_scan)
-    file_menu.add_command(label="Open Scan Results", command=dummy)
-    file_menu.add_command(label="Save Scan Results", command=dummy)
+    tools_menu = Menu(menu_bar, tearoff=0)
+    help_menu = Menu(menu_bar, tearoff=0)
+    
+    #creating a menu tab and menu options
+    menu_bar.add_cascade(label="file", menu=file_menu)
+    tools_menu.add_command(label="New Scan", command=dummy)
+    tools_menu.add_command(label="Open Scan Results", command=dummy)
+    tools_menu.add_command(label="Save Scan Results", command=dummy)
+    tools_menu.add_separator()
+    tools_menu.add_command(label="Exit", command=dummy)
+
+
+    #creating a tools menu and menu options
+    menu_bar.add_cascade(label="file", menu=tools_menu)
+    file_menu.add_command(label="IP lookup", command=dummy)
+    file_menu.add_command(label="Port Scanner", command=dummy)
+    file_menu.add_command(label="", command=dummy)
     file_menu.add_separator()
-    file_menu.add_command(label="Exit", command=exit_app)
+    file_menu.add_command(label="Exit", command=dummy)
+    
+    #creating a help menu and menus
+    menu_bar.add_cascade(label="Help", menu = help_menu)
+
+    
+
+
 
 
 
