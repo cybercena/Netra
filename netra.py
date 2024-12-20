@@ -1,20 +1,21 @@
 from tkinter import *
 from PIL import Image, ImageTk
 import time
+from tkinter import PhotoImage
+import tkinter as tk
+from tkinter import ttk, messagebox
+import threading
+import requests
 from tkinter import Menu, messagebox ,ttk , filedialog
 from scapy.all import ARP, Ether, srp
 import ipaddress
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from tkinter import PhotoImage
 import socket
 import re
 from datetime import datetime
-import tkinter as tk
-from tkinter import ttk, messagebox
-from scapy.all import ARP, Ether, srp
-import threading
-import requests
-
+from netra import *
+import random
+from itertools import cycle
 
 
 #functions that we are using in the netra 
