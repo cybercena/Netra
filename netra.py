@@ -24,6 +24,14 @@ import ipaddress
 
 from tkinter import ttk
 from tkinter import Tk
+from reportlab.lib import colors
+from tkinter.messagebox import showerror, showinfo
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
+from datetime import datetime
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename, asksaveasfilename
 
 
 #functions that we are using in the netra 
