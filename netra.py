@@ -16,6 +16,14 @@ from datetime import datetime
 from netra import *
 import random
 from itertools import cycle
+import tkinter as tk
+from colorama import init, Fore
+import requests
+import psutil
+import ipaddress
+
+from tkinter import ttk
+from tkinter import Tk
 
 
 #functions that we are using in the netra 
@@ -29,4 +37,4 @@ def get_public_ip():
     try:
         return requests.get('https://api.ipify.org').text
     except:
-        return "Unable to fetch"
+        return "No internet access !"
